@@ -1,0 +1,3306 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sahyog</title>
+  <link rel="icon" type="image/png" href="https://i.im.ge/2026/03/21/efC80a.Sahyog-Logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    /* ═══════════════════════════
+   TOKENS
+═══════════════════════════ */
+    :root[data-theme="dark"] {
+      --bg: #202124;
+      --bg2: #292a2d;
+      --bg3: #303134;
+      --card: #292a2d;
+      --hover: #35363a;
+      --bdr: rgba(232, 234, 237, 0.08);
+      --bdr-hi: rgba(61, 127, 206, 0.35);
+      --t1: #e8eaed;
+      --t2: #bdc1c6;
+      --t3: #9aa0a6;
+      --ac: #3d7fce;
+      --ac2: #6fa3e8;
+      --acdim: rgba(61, 127, 206, 0.12);
+      --acglow: rgba(61, 127, 206, 0.07);
+      --navbg: rgba(32, 33, 36, 0.94);
+      --sh: 0 16px 48px rgba(0, 0, 0, 0.32);
+      --sh2: 0 4px 20px rgba(0, 0, 0, 0.22);
+      --grid: rgba(232, 234, 237, 0.018);
+      --grn: #4ade80;
+      --tagbg: rgba(61, 127, 206, 0.1);
+    }
+
+    :root[data-theme="light"] {
+      --bg: #f0f4fc;
+      --bg2: #e6ecf8;
+      --bg3: #dce5f5;
+      --card: #ffffff;
+      --hover: #f5f8ff;
+      --bdr: rgba(0, 0, 0, 0.07);
+      --bdr-hi: rgba(26, 91, 168, 0.25);
+      --t1: #0e1829;
+      --t2: #4a5878;
+      --t3: #8a9ab8;
+      --ac: #1a5ba8;
+      --ac2: #2470c8;
+      --acdim: rgba(26, 91, 168, 0.08);
+      --acglow: rgba(26, 91, 168, 0.04);
+      --navbg: rgba(240, 244, 252, 0.95);
+      --sh: 0 16px 48px rgba(0, 0, 0, 0.08);
+      --sh2: 0 4px 20px rgba(0, 0, 0, 0.06);
+      --grid: rgba(0, 0, 0, 0.025);
+      --grn: #16a34a;
+      --tagbg: rgba(26, 91, 168, 0.07);
+    }
+
+    /* ═══════════════════════════
+   BASE
+═══════════════════════════ */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--t1);
+      overflow-x: hidden;
+      line-height: 1.6;
+      transition: background .4s, color .4s;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+      background-size: 64px 64px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ═══════════════════════════
+   NAV
+═══════════════════════════ */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: var(--navbg);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--bdr);
+      transition: background .4s;
+    }
+
+    .nav-in {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 48px;
+      height: 66px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none
+    }
+
+    .logo-sq {
+      width: 52px;
+      height: 52px;
+      background: transparent;
+      border-radius: 0;
+      display: grid;
+      place-items: center;
+      overflow: visible;
+      flex-shrink: 0;
+    }
+
+    .logo-sq img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+      transform: translateY(-6px);
+      display: block;
+    }
+
+    .logo-txt {
+      line-height: 1.1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .logo-name {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 20px;
+      letter-spacing: .08em;
+      color: var(--t1);
+      text-transform: uppercase
+    }
+
+    .logo-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      font-weight: 400;
+      color: var(--t3);
+      letter-spacing: .12em;
+      text-transform: uppercase
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      list-style: none
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--t2);
+      font-size: 13.5px;
+      font-weight: 500;
+      letter-spacing: .04em;
+      padding: 6px 14px;
+      border-radius: 5px;
+      transition: all .2s;
+      font-family: 'Inter', sans-serif
+    }
+
+    .nav-links a:hover {
+      color: var(--t1);
+      background: var(--acdim)
+    }
+
+    .nav-r {
+      display: flex;
+      align-items: center;
+      gap: 12px
+    }
+
+    .t-pill {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--card);
+      border: 1px solid var(--bdr);
+      border-radius: 100px;
+      padding: 4px 12px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--t2);
+      transition: all .25s;
+      user-select: none;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .t-pill:hover {
+      border-color: var(--ac);
+      color: var(--ac)
+    }
+
+    .btn-nav {
+      background: var(--ac);
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 8px 18px;
+      border-radius: 5px;
+      text-decoration: none;
+      letter-spacing: .025em;
+      transition: all .2s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-nav:hover {
+      background: var(--ac2);
+      transform: translateY(-1px)
+    }
+
+    .ham {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px
+    }
+
+    .ham span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--t1);
+      border-radius: 2px;
+      transition: all .3s
+    }
+
+    /* ═══════════════════════════
+   HERO
+═══════════════════════════ */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      z-index: 1;
+      padding: 0 48px;
+    }
+
+    .hero-mouse {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .mouse-orb {
+      position: absolute;
+      width: 340px;
+      height: 340px;
+      left: 0;
+      top: 0;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(111, 163, 232, 0.18) 0%, rgba(61, 127, 206, 0.08) 38%, transparent 72%);
+      filter: blur(10px);
+      transform: translate3d(-50%, -50%, 0);
+      opacity: .9;
+      transition: opacity .3s ease;
+    }
+
+    .mouse-ring {
+      position: absolute;
+      width: 520px;
+      height: 520px;
+      left: 0;
+      top: 0;
+      border-radius: 50%;
+      border: 1px solid rgba(111, 163, 232, 0.14);
+      transform: translate3d(-50%, -50%, 0);
+      opacity: .65;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: -20%;
+      right: -10%;
+      width: 750px;
+      height: 750px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 40% 40%, var(--acglow) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .h-arc {
+      position: absolute;
+      bottom: -300px;
+      left: -200px;
+      width: 700px;
+      height: 700px;
+      border-radius: 50%;
+      border: 1px solid var(--bdr-hi);
+      opacity: .25;
+      pointer-events: none
+    }
+
+    .h-arc2 {
+      position: absolute;
+      bottom: -180px;
+      left: -80px;
+      width: 450px;
+      height: 450px;
+      border-radius: 50%;
+      border: 1px solid var(--bdr-hi);
+      opacity: .15;
+      pointer-events: none
+    }
+
+    .hero-in {
+      max-width: 1320px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 130px 0 80px;
+      display: grid;
+      grid-template-columns: 55% 1fr;
+      gap: 80px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* hero left */
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 5px 14px;
+      border: 1px solid var(--bdr-hi);
+      border-radius: 3px;
+      background: var(--acdim);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      font-weight: 500;
+      color: var(--ac2);
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+      animation: up .8s ease both;
+    }
+
+    .pdot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--ac2);
+      animation: pulse 2s ease-in-out infinite
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1)
+      }
+
+      50% {
+        opacity: .4;
+        transform: scale(.7)
+      }
+    }
+
+    .h-h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(48px, 5.5vw, 78px);
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: -.01em;
+      color: var(--t1);
+      animation: up .8s .08s ease both;
+    }
+
+    .h-h1 strong {
+      font-weight: 700;
+      color: var(--ac2)
+    }
+
+    .h-sub {
+      margin-top: 22px;
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 1.85;
+      color: var(--t2);
+      max-width: 520px;
+      animation: up .8s .16s ease both;
+    }
+
+    .h-actions {
+      display: flex;
+      gap: 14px;
+      margin-top: 38px;
+      flex-wrap: wrap;
+      animation: up .8s .24s ease both
+    }
+
+    .btn-p {
+      background: var(--ac);
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 13px 28px;
+      border-radius: 5px;
+      text-decoration: none;
+      letter-spacing: .025em;
+      border: 2px solid var(--ac);
+      cursor: pointer;
+      transition: all .25s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-p:hover {
+      background: var(--ac2);
+      border-color: var(--ac2);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(61, 127, 206, .35)
+    }
+
+    .btn-g {
+      background: transparent;
+      color: var(--t1);
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 13px 28px;
+      border-radius: 5px;
+      text-decoration: none;
+      letter-spacing: .025em;
+      border: 1px solid var(--bdr);
+      cursor: pointer;
+      transition: all .25s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-g:hover {
+      border-color: var(--ac);
+      color: var(--ac);
+      transform: translateY(-2px)
+    }
+
+    .trust {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      margin-top: 48px;
+      padding-top: 30px;
+      border-top: 1px solid var(--bdr);
+      animation: up .8s .32s ease both;
+      flex-wrap: wrap;
+    }
+
+    .ti {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 12.5px;
+      font-weight: 400;
+      color: var(--t3)
+    }
+
+    .tdiv {
+      width: 1px;
+      height: 18px;
+      background: var(--bdr)
+    }
+
+    /* hero right — fund card */
+    .fcard {
+      background: var(--card);
+      border: 1px solid var(--bdr);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: var(--sh);
+      animation: up .8s .2s ease both
+    }
+
+    .fc-hd {
+      padding: 17px 22px;
+      border-bottom: 1px solid var(--bdr);
+      display: flex;
+      align-items: center;
+      justify-content: space-between
+    }
+
+    .fc-lbl {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--t3);
+      letter-spacing: .14em;
+      text-transform: uppercase
+    }
+
+    .live {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--grn);
+      letter-spacing: .1em
+    }
+
+    .lpip {
+      width: 6px;
+      height: 6px;
+      background: var(--grn);
+      border-radius: 50%;
+      animation: pulse 1.8s ease-in-out infinite
+    }
+
+    .fc-chart {
+      padding: 8px 22px 0
+    }
+
+    .fc-chart svg {
+      width: 100%;
+      height: 96px
+    }
+
+    .fc-rows {
+      padding: 4px 0
+    }
+
+    .fc-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 22px;
+      border-top: 1px solid var(--bdr)
+    }
+
+    .fc-k {
+      font-size: 11.5px;
+      font-weight: 400;
+      color: var(--t3);
+      letter-spacing: .02em
+    }
+
+    .fc-v {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--t1)
+    }
+
+    .fc-v.blu {
+      color: var(--ac2)
+    }
+
+    .fc-ft {
+      padding: 14px 22px;
+      border-top: 1px solid var(--bdr);
+      display: flex;
+      gap: 7px;
+      flex-wrap: wrap
+    }
+
+    .psm {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--ac);
+      background: var(--acdim);
+      border: 1px solid var(--bdr-hi);
+      padding: 3px 9px;
+      border-radius: 3px;
+      letter-spacing: .06em
+    }
+
+    .fsb {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin: 10px 22px 16px;
+      background: var(--ac);
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 11px;
+      border-radius: 6px;
+      text-decoration: none;
+      letter-spacing: .03em;
+      transition: all .2s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .fsb:hover {
+      background: var(--ac2);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(61, 127, 206, .3)
+    }
+
+    @keyframes up {
+      from {
+        opacity: 0;
+        transform: translateY(26px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    /* ═══════════════════════════
+   SHARED
+═══════════════════════════ */
+    section {
+      position: relative;
+      z-index: 1
+    }
+
+    .sin {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 96px 48px
+    }
+
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      font-weight: 500;
+      color: var(--ac);
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .kicker::before {
+      content: '';
+      width: 22px;
+      height: 1px;
+      background: var(--ac)
+    }
+
+    .sh2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(30px, 3.8vw, 48px);
+      font-weight: 400;
+      line-height: 1.15;
+      color: var(--t1)
+    }
+
+    .sh2 strong {
+      font-weight: 700;
+      color: var(--ac2)
+    }
+
+    .sbody {
+      font-size: 15.5px;
+      font-weight: 300;
+      line-height: 1.82;
+      color: var(--t2);
+      max-width: 580px;
+      margin-top: 16px
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .7s ease, transform .7s ease
+    }
+
+    .reveal.vis {
+      opacity: 1;
+      transform: translateY(0)
+    }
+
+    /* ═══════════════════════════
+   ABOUT
+═══════════════════════════ */
+    #about {
+      border-top: 1px solid var(--bdr)
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+      margin-top: 56px
+    }
+
+    .ab-body p {
+      font-size: 15.5px;
+      font-weight: 300;
+      line-height: 1.85;
+      color: var(--t2);
+      margin-bottom: 18px
+    }
+
+    .pq {
+      border-left: 3px solid var(--ac);
+      padding: 18px 22px;
+      background: var(--acdim);
+      border-radius: 0 8px 8px 0;
+      margin: 8px 0
+    }
+
+    .pq p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--ac2) !important;
+      line-height: 1.55;
+      margin: 0 !important
+    }
+
+    .mentor {
+      margin-top: 28px;
+      background: var(--card);
+      border: 1px solid var(--bdr);
+      border-radius: 10px;
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      gap: 18px
+    }
+
+    .mav {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--acdim);
+      border: 2px solid var(--bdr-hi);
+      display: grid;
+      place-items: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--ac);
+      flex-shrink: 0
+    }
+
+    .minfo h5 {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--t1)
+    }
+
+    .minfo {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .minfo span {
+      font-size: 11.5px;
+      color: var(--t3);
+      letter-spacing: .03em;
+      display: block;
+      margin-top: 2px
+    }
+
+    .cfab {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--ac);
+      background: var(--acdim);
+      padding: 3px 7px;
+      border-radius: 3px;
+      margin-top: 5px;
+      letter-spacing: .04em;
+      line-height: 1.4;
+      max-width: 100%;
+      white-space: normal;
+      overflow-wrap: anywhere;
+      text-align: center
+    }
+
+    .mentor .cfab {
+      align-self: flex-start;
+    }
+
+    .mcard .cfab,
+    .ancard .cfab {
+      margin-top: auto !important;
+      align-self: center;
+      width: fit-content;
+      max-width: fit-content;
+      padding: 2px 6px;
+      line-height: 1.3;
+    }
+
+    .ab-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 16px
+    }
+
+    .acard {
+      background: var(--card);
+      border: 1px solid var(--bdr);
+      border-radius: 10px;
+      padding: 20px 22px;
+      transition: all .3s
+    }
+
+    .acard:hover {
+      border-color: var(--bdr-hi);
+      background: var(--hover);
+      transform: translateX(5px);
+      box-shadow: var(--sh2)
+    }
+
+    .acard-top {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      margin-bottom: 9px
+    }
+
+    .aico {
+      width: 34px;
+      height: 34px;
+      border-radius: 7px;
+      background: var(--acdim);
+      border: 1px solid var(--bdr-hi);
+      display: grid;
+      place-items: center;
+      font-size: 15px
+    }
+
+    .acard h4 {
+      font-size: 14.5px;
+      font-weight: 600;
+      color: var(--t1)
+    }
+
+    .acard p {
+      font-size: 13.5px;
+      font-weight: 300;
+      line-height: 1.7;
+      color: var(--t2)
+    }
+
+    .tvb {
+      background: var(--card);
+      border: 1px solid var(--bdr);
+      border-radius: 10px;
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: all .3s
+    }
+
+    .tvb:hover {
+      border-color: var(--bdr-hi)
+    }
+
+    .tvl {
+      width: 40px;
+      height: 40px;
+      border-radius: 7px;
+      background: #1e6be6;
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      font-size: 12px;
+      color: #fff;
+      flex-shrink: 0;
+      letter-spacing: -.5px
+    }
+
+    .tvt h5 {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--t1)
+    }
+
+    .tvt p {
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--t2);
+      margin-top: 2px
+    }
+
+    /* ═══════════════════════════
+   MISSION BAND
+═══════════════════════════ */
+    .mband {
+      border-top: 1px solid var(--bdr);
+      border-bottom: 1px solid var(--bdr);
+      background: var(--acdim);
+      padding: 64px 48px;
+      position: relative;
+      z-index: 1;
+      overflow: hidden
+    }
+
+    .mband::before {
+      content: '\201C';
+      position: absolute;
+      top: -30px;
+      left: 36px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 240px;
+      font-weight: 700;
+      color: var(--ac);
+      opacity: .06;
+      line-height: 1;
+      pointer-events: none
+    }
+
+    .mb-in {
+      max-width: 1320px;
+      margin: 0 auto;
+      text-align: center
+    }
+
+    .mq {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(18px, 2.5vw, 28px);
+      font-weight: 400;
+      line-height: 1.65;
+      color: var(--t1);
+      max-width: 800px;
+      margin: 0 auto
+    }
+
+    .mq strong {
+      font-style: normal;
+      font-weight: 600;
+      color: var(--ac2)
+    }
+
+    .mattr {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--t3);
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      margin-top: 20px
+    }
+
+    /* ═══════════════════════════
+   STRUCTURE
+═══════════════════════════ */
+    #structure {
+      border-top: 1px solid var(--bdr);
+      background: var(--bg2)
+    }
+
+    .vgrid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+      margin-top: 56px
+    }
+
+    .vc {
+      background: var(--card);
+      border: 1px solid var(--bdr);
+      border-radius: 13px;
+      padding: 30px 26px;
+      position: relative;
+      overflow: hidden;
+      transition: all .35s;
+      cursor: default
+    }
+
+    .vc::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--ac);
+      opacity: 0;
+      transition: opacity .3s
+    }
+
+    .vc:hover {
+      border-color: var(--bdr-hi);
+      background: var(--hover);
+      transform: translateY(-5px);
+      box-shadow: var(--sh2)
+    }
+
+    .vc:hover::after {
+      opacity: 1
+    }
+
+    .vnum {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--t3);
+      letter-spacing: .1em;
+      margin-bottom: 16px
+    }
+
+    .vico {
+      width: 46px;
+      height: 46px;
+      background: var(--acdim);
+      border: 1px solid var(--bdr-hi);
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      font-size: 20px;
+      margin-bottom: 18px
+    }
+
+    .vc h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 23px;
+      font-weight: 500;
+      color: var(--t1);
+      margin-bottom: 11px
+    }
+
+    .vc p {
+      font-size: 13.5px;
+      font-weight: 300;
+      line-height: 1.75;
+      color: var(--t2)
+    }
+
+    .vtags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 16px
+    }
+
+    .vtag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--ac);
+      background: var(--tagbg);
+      padding: 3px 9px;
+      border-radius: 3px;
+      letter-spacing: .04em
+    }
+
+    /* ═══════════════════════════
+   AGM
+═══════════════════════════ */
+    #agm {
+      border-top: 1px solid var(--bdr)
+    }
+
+    .agm-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: 72px;
+      align-items: start;
+      margin-top: 56px
+    }
+
+    .agm-timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 0
+    }
+
+    .agi {
+      position: relative;
+      padding: 20px 0 20px 28px;
+      border-bottom: 1px solid var(--bdr)
+    }
+
+    .agi::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 24px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--ac);
+      border: 2px solid var(--bg);
+      box-shadow: 0 0 0 1px var(--ac)
+    }
+
+    .agi-meta {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 5px
+    }
+
+    .agi-date {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      font-weight: 500;
+      color: var(--ac);
+      letter-spacing: .08em
+    }
+
+    .agi-type {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--t3);
+      background: var(--bg3);
+      padding: 2px 7px;
+      border-radius: 3px
+    }
+
+    .agi h4 {
+      font-size: 14.5px;
+      font-weight: 600;
+      color: var(--t1);
+      margin-bottom: 4px
+    }
+
+    .agi p {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--t2);
+      line-height: 1.65
+    }
+
+    .agm-empty {
+      padding: 48px 28px;
+      text-align: center;
+      border: 1px dashed var(--bdr);
+      border-radius: 10px
+    }
+
+    .agm-empty p {
+      font-size: 14px;
+      color: var(--t3)
+    }
+
+    .btn-del {
+      background: none;
+      border: none;
+      color: var(--t3);
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: .04em;
+      transition: color .2s;
+      margin-left: auto;
+      display: block;
+      margin-top: 6px;
+      font-family: 'Inter', sans-serif
+    }
+
+    .btn-del:hover {
+      color: #ef4444
+    }
+
+    /* AGM panel */
+    .agm-panel {
+      background: var(--card);
+      border: 1px solid var(--bdr);
+      border-radius: 14px;
+      overflow: hidden;
+      position: sticky;
+      top: 86px
+    }
+
+    .ap-hd {
+      padding: 16px 22px;
+      border-bottom: 1px solid var(--bdr);
+      display: flex;
+      align-items: center;
+      justify-content: space-between
+    }
+
+    .ap-hd h5 {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--t1)
+    }
+
+    .ap-hd span {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--t3);
+      letter-spacing: .1em
+    }
+
+    .ap-form {
+      padding: 18px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 13px
+    }
+
+    .frow {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 11px
+    }
+
+    .fg {
+      display: flex;
+      flex-direction: column;
+      gap: 4px
+    }
+
+    .fl {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--t3);
+      letter-spacing: .1em;
+      text-transform: uppercase
+    }
+
+    .fi,
+    .fs,
+    .fta {
+      background: var(--bg2);
+      border: 1px solid var(--bdr);
+      border-radius: 6px;
+      padding: 9px 12px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13.5px;
+      font-weight: 400;
+      color: var(--t1);
+      outline: none;
+      transition: border-color .2s;
+      width: 100%;
+    }
+
+    .fi:focus,
+    .fs:focus,
+    .fta:focus {
+      border-color: var(--ac)
+    }
+
+    .fta {
+      resize: vertical;
+      min-height: 78px
+    }
+
+    .fs option {
+      background: var(--bg2)
+    }
+
+    .btn-add {
+      background: var(--ac);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 10px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all .2s;
+      letter-spacing: .02em;
+    }
+
+    .btn-add:hover {
+      background: var(--ac2);
+      transform: translateY(-1px)
+    }
+
+    .ap-ft {
+      padding: 11px 22px;
+      border-top: 1px solid var(--bdr);
+      font-size: 11.5px;
+      color: var(--t3)
+    }
+
+    /* ═══════════════════════════
+   TEAM
+═══════════════════════════ */
+    #team {
+      border-top: 1px solid var(--bdr);
+      background: var(--bg2)
+    }
+
+    .tslbl {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      font-weight: 500;
+      color: var(--t3);
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      padding-bottom: 13px;
+      border-bottom: 1px solid var(--bdr);
+      margin-bottom: 20px
+    }
+
+    .lgrid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 18px;
+      margin-bottom: 42px
+    }
+
+    .mcard {
+      background: var(--card);
+      border: 1px solid var(--bdr);
+      border-radius: 11px;
+      padding: 24px 16px 22px;
+      width: 100%;
+      max-width: 220px;
+      min-height: 168px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-self: center;
+      transition: all .3s;
+      cursor: pointer
+    }
+
+    .mcard:hover {
+      border-color: var(--bdr-hi);
+      transform: translateY(-4px);
+      box-shadow: var(--sh2)
+    }
+
+    .mav {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: var(--acdim);
+      border: 2px solid var(--bdr-hi);
+      display: grid;
+      place-items: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--ac);
+      margin: 0 auto 16px
+    }
+
+    .mcard.fac .mav {
+      background: rgba(61, 127, 206, .22);
+      border-color: var(--ac)
+    }
+
+    .mname {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--t1)
+    }
+
+    .mrole {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--ac);
+      margin-top: 3px;
+      letter-spacing: .02em
+    }
+
+    .an-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
+      gap: 16px
+    }
+
+    .ancard {
+      background: var(--card);
+      border: 1px solid var(--bdr);
+      border-radius: 10px;
+      padding: 22px 12px 18px;
+      width: 100%;
+      max-width: 220px;
+      min-height: 156px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-self: center;
+      transition: all .3s;
+      cursor: pointer
+    }
+
+    .ancard:hover {
+      border-color: var(--bdr-hi);
+      transform: translateY(-3px);
+      box-shadow: var(--sh2)
+    }
+
+    .anav {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--acdim);
+      border: 1px solid var(--bdr-hi);
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--ac);
+      margin: 0 auto 14px
+    }
+
+    .anav img {
+      width: calc(100% - 6px);
+      height: calc(100% - 6px);
+      object-fit: cover;
+      object-position: center;
+      border-radius: 50%;
+      display: block;
+    }
+
+    .anav img.full-bleed {
+      width: 100%;
+      height: 100%;
+    }
+
+    .anav img.crop-nilay {
+      object-position: center 20%;
+      transform: scale(1.08);
+    }
+
+    .anav img.crop-sarthak {
+      object-position: center 18%;
+      transform: scale(1.1);
+    }
+
+    .mav img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      display: block;
+    }
+
+    .mav img.crop-monika {
+      object-position: center 18%;
+      transform: scale(1.04);
+    }
+
+    .mav img.crop-rishabh {
+      object-position: center 18%;
+      transform: scale(1.06);
+    }
+
+    .mav img.crop-ayushi {
+      object-position: center 20%;
+      transform: scale(1.04);
+    }
+
+    .anav img.crop-rajdeep {
+      object-position: center 18%;
+      transform: scale(1.08);
+    }
+
+    .anav img.crop-ayani {
+      object-position: center 18%;
+      transform: scale(1.06);
+    }
+
+    .anav img.crop-yurekaa {
+      object-position: center 18%;
+      transform: scale(1.06);
+    }
+
+    .anname {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--t1)
+    }
+
+    .anrole {
+      font-size: 11.5px;
+      color: var(--t3);
+      margin-top: 4px
+    }
+
+    .team-tip {
+      font-size: 12px;
+      color: var(--t3);
+      margin-top: 10px
+    }
+
+    .team-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 28px 0 26px;
+    }
+
+    .team-tab {
+      border: 1px solid var(--bdr);
+      background: var(--card);
+      color: var(--t2);
+      border-radius: 999px;
+      padding: 10px 16px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .04em;
+      cursor: pointer;
+      transition: all .2s;
+    }
+
+    .team-tab:hover,
+    .team-tab.active {
+      color: var(--t1);
+      border-color: var(--bdr-hi);
+      background: var(--acdim);
+    }
+
+    .team-panel {
+      display: none;
+    }
+
+    .team-panel.active {
+      display: block;
+    }
+
+    .team-subsec {
+      margin-top: 26px;
+    }
+
+    .team-grid-tight {
+      grid-template-columns: repeat(auto-fit, minmax(155px, 220px));
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .team-empty {
+      background: var(--card);
+      border: 1px dashed var(--bdr-hi);
+      border-radius: 12px;
+      padding: 22px 18px;
+      color: var(--t2);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .team-subsec.hidden {
+      display: none;
+    }
+
+    .profile-modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      z-index: 3000;
+      background: rgba(12, 14, 18, 0.45);
+      backdrop-filter: blur(12px);
+    }
+
+    .profile-modal.open {
+      display: flex;
+    }
+
+    .profile-card {
+      width: min(540px, 100%);
+      background: var(--card);
+      border: 1px solid var(--bdr-hi);
+      border-radius: 18px;
+      box-shadow: var(--sh);
+      padding: 28px 26px;
+      position: relative;
+    }
+
+    .profile-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid var(--bdr);
+      background: var(--bg2);
+      color: var(--t1);
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    .profile-head {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 18px;
+      padding-right: 36px;
+    }
+
+    .profile-avatar {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      background: var(--acdim);
+      border: 2px solid var(--bdr-hi);
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      color: var(--ac);
+      font-size: 28px;
+      font-weight: 700;
+      font-family: 'Cormorant Garamond', serif;
+      flex-shrink: 0;
+    }
+
+    .profile-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .profile-name {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--t1);
+      line-height: 1.2;
+    }
+
+    .profile-role {
+      margin-top: 6px;
+      color: var(--ac);
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .profile-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .profile-meta {
+      background: var(--bg2);
+      border: 1px solid var(--bdr);
+      border-radius: 12px;
+      padding: 14px;
+    }
+
+    .profile-k {
+      font-size: 11px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--t3);
+      margin-bottom: 6px;
+    }
+
+    .profile-v {
+      font-size: 14px;
+      color: var(--t1);
+      line-height: 1.5;
+    }
+
+    /* ═══════════════════════════
+   REPORTS
+═══════════════════════════ */
+    #reports {
+      border-top: 1px solid var(--bdr)
+    }
+
+    .rep-soon {
+      text-align: center;
+      padding: 64px 40px;
+      background: var(--card);
+      border: 1px dashed var(--bdr);
+      border-radius: 13px;
+      margin-top: 56px
+    }
+
+    .rep-soon-ico {
+      font-size: 44px;
+      margin-bottom: 14px
+    }
+
+    .rep-soon h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px;
+      font-weight: 400;
+      color: var(--t1);
+      margin-bottom: 8px
+    }
+
+    .rep-soon p {
+      font-size: 14px;
+      color: var(--t2);
+      max-width: 440px;
+      margin: 0 auto 24px
+    }
+
+    /* ═══════════════════════════
+   CONNECT
+═══════════════════════════ */
+    #connect {
+      border-top: 1px solid var(--bdr);
+      background: var(--bg2)
+    }
+
+    .cgrid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      margin-top: 56px;
+      align-items: start
+    }
+
+    .cleft {
+      display: flex;
+      flex-direction: column;
+      gap: 20px
+    }
+
+    .ccard {
+      background: var(--card);
+      border: 1px solid var(--bdr);
+      border-radius: 13px;
+      padding: 24px 26px;
+      transition: all .3s
+    }
+
+    .ccard:hover {
+      border-color: var(--bdr-hi);
+      transform: translateX(5px)
+    }
+
+    .cico {
+      width: 40px;
+      height: 40px;
+      background: var(--acdim);
+      border-radius: 9px;
+      display: grid;
+      place-items: center;
+      font-size: 18px;
+      margin-bottom: 13px
+    }
+
+    .ccard h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--t1);
+      margin-bottom: 7px
+    }
+
+    .ccard p {
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.72;
+      color: var(--t2);
+      margin-bottom: 13px
+    }
+
+    .larr {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ac);
+      text-decoration: none;
+      letter-spacing: .03em;
+      transition: gap .2s
+    }
+
+    .larr:hover {
+      gap: 10px;
+      color: var(--ac2)
+    }
+
+    .cright {
+      position: sticky;
+      top: 86px;
+      background: var(--card);
+      border: 1px solid var(--bdr);
+      border-radius: 14px;
+      padding: 32px 28px;
+      text-align: center
+    }
+
+    .cright h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px;
+      font-weight: 500;
+      color: var(--t1);
+      margin-bottom: 10px
+    }
+
+    .cright p {
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.75;
+      color: var(--t2);
+      margin-bottom: 18px
+    }
+
+    .qrbox {
+      width: 128px;
+      height: 128px;
+      border: 1px solid var(--bdr);
+      border-radius: 10px;
+      margin: 0 auto 14px;
+      display: grid;
+      place-items: center;
+      background: var(--bg2);
+      padding: 15px
+    }
+
+    .pnote {
+      font-size: 11.5px;
+      color: var(--t3);
+      margin-top: 8px
+    }
+
+    /* ═══════════════════════════
+   FOOTER
+═══════════════════════════ */
+    footer {
+      border-top: 1px solid var(--bdr);
+      background: var(--bg2);
+      position: relative;
+      z-index: 1
+    }
+
+    .fin {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 56px 48px 34px
+    }
+
+    .ftop {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr 1fr;
+      gap: 56px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid var(--bdr)
+    }
+
+    .fbrand p {
+      font-size: 13.5px;
+      font-weight: 300;
+      line-height: 1.75;
+      color: var(--t2);
+      margin-top: 14px;
+      max-width: 270px
+    }
+
+    .fcol h5 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--t3);
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      margin-bottom: 15px
+    }
+
+    .fcol a {
+      display: block;
+      font-size: 13.5px;
+      font-weight: 300;
+      color: var(--t2);
+      text-decoration: none;
+      margin-bottom: 9px;
+      transition: color .2s
+    }
+
+    .fcol a:hover {
+      color: var(--ac)
+    }
+
+    .fbot {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 24px;
+      flex-wrap: wrap;
+      gap: 12px
+    }
+
+    .fcopy {
+      font-size: 12.5px;
+      color: var(--t3);
+      font-weight: 300
+    }
+
+    .fcopy a {
+      color: var(--ac);
+      text-decoration: none
+    }
+
+    .fmade {
+      font-size: 12.5px;
+      color: var(--t3);
+      font-weight: 300;
+      text-align: center;
+      flex: 1;
+    }
+
+    .fmade a {
+      color: var(--ac);
+      text-decoration: none
+    }
+
+    .s8 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      color: var(--t3);
+      background: var(--card);
+      border: 1px solid var(--bdr);
+      padding: 4px 11px;
+      border-radius: 3px;
+      letter-spacing: .08em
+    }
+
+    /* ═══════════════════════════
+   MOBILE MENU
+═══════════════════════════ */
+    .mob {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      z-index: 999;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px
+    }
+
+    .mob.open {
+      display: flex
+    }
+
+    .mob a {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 30px;
+      font-weight: 400;
+      color: var(--t1);
+      text-decoration: none;
+      padding: 10px;
+      transition: color .2s
+    }
+
+    .mob a:hover {
+      color: var(--ac)
+    }
+
+    .mob-x {
+      position: absolute;
+      top: 22px;
+      right: 22px;
+      background: none;
+      border: none;
+      font-size: 26px;
+      cursor: pointer;
+      color: var(--t2)
+    }
+
+    /* ═══════════════════════════
+   RESPONSIVE
+═══════════════════════════ */
+    @media(max-width:1100px) {
+      .hero-in {
+        grid-template-columns: 1fr;
+        gap: 48px
+      }
+
+      .fcard {
+        display: none
+      }
+
+      .about-grid,
+      .cgrid,
+      .agm-layout {
+        grid-template-columns: 1fr;
+        gap: 44px
+      }
+
+      .vgrid {
+        grid-template-columns: 1fr
+      }
+
+      .lgrid {
+        grid-template-columns: repeat(2, 1fr)
+      }
+
+      .an-grid {
+        grid-template-columns: repeat(3, 1fr)
+      }
+
+      .profile-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .ftop {
+        grid-template-columns: 1fr 1fr;
+        gap: 36px
+      }
+    }
+
+    @media(max-width:768px) {
+
+      .nav-links,
+      .btn-nav {
+        display: none
+      }
+
+      .ham {
+        display: flex
+      }
+
+      .nav-in,
+      .sin,
+      .hero,
+      .mband,
+      .fin {
+        padding-left: 18px;
+        padding-right: 18px
+      }
+
+      .sin {
+        padding-top: 60px;
+        padding-bottom: 60px
+      }
+
+      .hero-in {
+        padding: 96px 0 44px;
+        gap: 30px
+      }
+
+      .h-h1 {
+        font-size: clamp(38px, 13vw, 54px);
+        line-height: 1.04;
+      }
+
+      .h-sub {
+        margin-top: 18px;
+        font-size: 14px;
+        line-height: 1.75;
+      }
+
+      .h-actions {
+        margin-top: 28px;
+        gap: 10px;
+      }
+
+      .btn-p,
+      .btn-g {
+        width: 100%;
+        justify-content: center;
+        padding: 12px 18px;
+        font-size: 13.5px;
+      }
+
+      .trust {
+        margin-top: 34px;
+        padding-top: 22px;
+        gap: 12px;
+      }
+
+      .ti {
+        width: 100%;
+        font-size: 12px;
+      }
+
+      .tdiv {
+        display: none;
+      }
+
+      .kicker {
+        font-size: 9.5px;
+        letter-spacing: .14em;
+        gap: 8px;
+        margin-bottom: 12px;
+      }
+
+      .kicker::before {
+        width: 16px;
+      }
+
+      .sh2 {
+        line-height: 1.08;
+      }
+
+      .sbody,
+      .ab-body p,
+      .acard p,
+      .ccard p,
+      .cright p {
+        font-size: 14px;
+        line-height: 1.75;
+      }
+
+      .about-grid,
+      .cgrid,
+      .agm-layout {
+        gap: 28px;
+      }
+
+      .vgrid {
+        gap: 16px;
+      }
+
+      .vc,
+      .acard,
+      .ccard,
+      .cright,
+      .rep-soon {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+
+      .vc {
+        padding-top: 24px;
+        padding-bottom: 24px;
+      }
+
+      .lgrid {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+
+      .an-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+
+      .mcard,
+      .ancard {
+        min-height: 0;
+      }
+
+      .team-tabs {
+        gap: 8px;
+        margin: 22px 0 20px;
+      }
+
+      .team-tab {
+        flex: 1 1 calc(50% - 8px);
+        text-align: center;
+        padding: 9px 12px;
+        font-size: 11px;
+      }
+
+      .team-tip {
+        font-size: 11.5px;
+        line-height: 1.6;
+      }
+
+      .tslbl {
+        font-size: 10px;
+        margin-bottom: 16px;
+        padding-bottom: 10px;
+      }
+
+      .profile-card {
+        padding: 24px 18px;
+      }
+
+      .profile-head {
+        align-items: flex-start;
+      }
+
+      .profile-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .ftop {
+        grid-template-columns: 1fr
+      }
+
+      .fbrand p {
+        max-width: none;
+      }
+
+      .frow {
+        grid-template-columns: 1fr
+      }
+
+      .cright,
+      .agm-panel {
+        position: relative;
+        top: 0
+      }
+    }
+
+    /* ═══════════════════════════
+   TESTIMONIALS
+═══════════════════════════ */
+    #testimonials {
+      border-top: 1px solid var(--bdr);
+    }
+
+    .testi-wrap {
+      position: relative;
+      margin-top: 56px;
+    }
+
+    .testi-track {
+      display: flex;
+      gap: 24px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      padding: 8px 4px 24px;
+      scrollbar-width: none;
+    }
+
+    .testi-track::-webkit-scrollbar {
+      display: none;
+    }
+
+    .testi-card {
+      min-width: 520px;
+      max-width: 520px;
+      min-height: 300px;
+      background: var(--card);
+      border: 1px solid var(--bdr);
+      border-radius: 14px;
+      padding: 32px 28px;
+      display: flex;
+      gap: 22px;
+      align-items: stretch;
+      scroll-snap-align: start;
+      transition: all .3s;
+      flex-shrink: 0;
+    }
+
+    .testi-card:hover {
+      border-color: var(--bdr-hi);
+      transform: translateY(-4px);
+      box-shadow: var(--sh2);
+    }
+
+    .testi-avatar {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      align-self: flex-start;
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: #fff;
+      border: 3px solid var(--bdr-hi);
+    }
+
+    .testi-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .testi-body {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .testi-quote {
+      font-size: 14.5px;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--t2);
+      margin-bottom: 18px;
+      position: relative;
+    }
+
+    .testi-quote::before {
+      content: '\201C';
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 42px;
+      font-weight: 700;
+      color: var(--ac);
+      opacity: .35;
+      position: absolute;
+      top: -18px;
+      left: -4px;
+      line-height: 1;
+    }
+
+    .testi-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--t1);
+    }
+
+    .testi-role {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--ac);
+      margin-top: 2px;
+      letter-spacing: .02em;
+    }
+
+    .testi-org {
+      font-size: 11px;
+      color: var(--t3);
+      margin-top: 2px;
+    }
+
+    .testi-meta {
+      margin-top: auto;
+    }
+
+    .testi-nav {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .testi-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--card);
+      border: 1px solid var(--bdr);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      color: var(--t2);
+      font-size: 18px;
+      transition: all .2s;
+    }
+
+    .testi-btn:hover {
+      border-color: var(--ac);
+      color: var(--ac);
+      background: var(--acdim);
+    }
+
+    @media(max-width:768px) {
+      .testi-card {
+        min-width: 320px;
+        max-width: 320px;
+        min-height: 0;
+        padding: 24px 20px;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 16px;
+      }
+
+      .testi-body {
+        width: 100%;
+      }
+
+      .testi-meta {
+        margin-top: 18px;
+      }
+
+      .testi-nav {
+        justify-content: center;
+      }
+
+      .testi-quote::before {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
+
+    @media(max-width:540px) {
+      .nav-in {
+        height: 60px;
+      }
+
+      .logo-sq {
+        width: 44px;
+        height: 44px;
+      }
+
+      .logo-name {
+        font-size: 17px;
+      }
+
+      .logo-tag {
+        font-size: 9px;
+      }
+
+      .hero {
+        min-height: auto;
+      }
+
+      .h-arc,
+      .h-arc2,
+      .hero::after,
+      .hero-mouse {
+        display: none;
+      }
+
+      .pq {
+        padding: 14px 16px;
+      }
+
+      .pq p {
+        font-size: 16px;
+      }
+
+      .mcard,
+      .ancard {
+        padding: 20px 12px 16px;
+      }
+
+      .an-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .mav,
+      .anav {
+        width: 58px;
+        height: 58px;
+      }
+
+      .profile-head {
+        gap: 12px;
+      }
+
+      .profile-avatar {
+        width: 64px;
+        height: 64px;
+      }
+
+      .profile-name {
+        font-size: 20px;
+      }
+
+      .rep-soon {
+        padding-top: 42px;
+        padding-bottom: 42px;
+      }
+
+      .testi-card {
+        min-width: calc(100vw - 44px);
+        max-width: calc(100vw - 44px);
+        padding: 20px 16px;
+      }
+
+      .testi-quote {
+        font-size: 13.5px;
+        line-height: 1.75;
+      }
+
+      .testi-avatar {
+        width: 68px;
+        height: 68px;
+      }
+
+      .fbot {
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-in">
+      <a href="#" class="nav-logo">
+        <div class="logo-sq"><img src="https://i.im.ge/2026/03/21/efC80a.Sahyog-Logo.png" alt="SAHYOG logo"></div>
+        <div class="logo-txt">
+          <div class="logo-name">SAHYOG</div>
+          <div class="logo-tag">IMI Delhi</div>
+        </div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#structure">Structure</a></li>
+        <li><a href="#agm">AGM</a></li>
+        <li><a href="#team">Team</a></li>
+        <li><a href="#reports">Reports</a></li>
+        <li><a href="#connect">Connect</a></li>
+      </ul>
+      <div class="nav-r">
+        <button class="t-pill" id="themeBtn">
+          <span id="themeIcon">☀️</span>
+          <span id="themeLbl">Light</span>
+        </button>
+        <a href="#connect" class="btn-nav">Join <strong>SAHYOG</strong></a>
+        <div class="ham" id="ham"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mob" id="mobMenu">
+    <button class="mob-x" id="mobX">✕</button>
+    <a href="#about" onclick="closeMob()">About</a>
+    <a href="#structure" onclick="closeMob()">Structure</a>
+    <a href="#agm" onclick="closeMob()">AGM</a>
+    <a href="#team" onclick="closeMob()">Team</a>
+    <a href="#reports" onclick="closeMob()">Reports</a>
+    <a href="#connect" onclick="closeMob()">Connect</a>
+  </div>
+
+  <!-- ══════════ HERO ══════════ -->
+  <section class="hero" id="home">
+    <div class="hero-mouse" aria-hidden="true">
+      <div class="mouse-ring" id="mouseRing"></div>
+      <div class="mouse-orb" id="mouseOrb"></div>
+    </div>
+    <div class="h-arc"></div>
+    <div class="h-arc2"></div>
+    <div class="hero-in">
+      <div>
+        <h1 class="h-h1">
+          Rigorous Research.<br>
+          <strong>Real Capital.</strong> Real Discipline.
+        </h1>
+        <p class="h-sub">
+          <strong>SAHYOG</strong> is the investment fund of the International Management Institute, Delhi — student-run,
+          institutionally
+          governed, and built on a single conviction: the best training ground for an investor is a functioning
+          investment organisation, not a classroom.
+        </p>
+        <div class="h-actions">
+          <a href="#about" class="btn-p">
+            Explore <strong>SAHYOG</strong>
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+          </a>
+          <a href="#FUND_NAV_PDF" class="btn-g" id="navPdfBtn" target="_blank">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <rect x="2" y="1.5" width="10" height="11" rx="1.5" stroke="currentColor" stroke-width="1.4" />
+              <path d="M4.5 5h5M4.5 7.5h5M4.5 10h3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
+            </svg>
+            Fund Status (NAV)
+          </a>
+        </div>
+      </div>
+
+      <!-- Fund card -->
+      <div class="fcard">
+        <div class="fc-hd">
+          <span class="fc-lbl">Impact Overview</span>
+          <span class="live"><span class="lpip"></span>ACTIVE</span>
+        </div>
+        <div class="fc-chart">
+          <svg viewBox="0 0 340 96" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="cg" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#3d7fce" stop-opacity=".25" />
+                <stop offset="100%" stop-color="#3d7fce" stop-opacity="0" />
+              </linearGradient>
+            </defs>
+            <path d="M0,80 C30,75 50,62 85,56 C120,50 145,68 185,48 C220,30 250,44 280,32 C305,22 320,28 340,14"
+              fill="none" stroke="#3d7fce" stroke-width="2" />
+            <path
+              d="M0,80 C30,75 50,62 85,56 C120,50 145,68 185,48 C220,30 250,44 280,32 C305,22 320,28 340,14 L340,96 L0,96Z"
+              fill="url(#cg)" />
+          </svg>
+        </div>
+        <div class="fc-rows">
+          <div class="fc-row"><span class="fc-k">Lives Affected</span><span class="fc-v">To be updated</span></div>
+          <div class="fc-row"><span class="fc-k">Amount Disbursed</span><span class="fc-v">To be updated</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ ABOUT ══════════ -->
+  <section id="about">
+    <div class="sin">
+      <div class="reveal">
+        <div class="kicker">About <strong>SAHYOG</strong></div>
+        <h2 class="sh2">Where Academic Rigour Meets<br><strong>Real-World Markets</strong></h2>
+      </div>
+      <div class="about-grid">
+        <div class="ab-body reveal">
+          <p><strong>SAHYOG</strong> is the Student Managed Investment Fund (SMIF) of the International Management
+            Institute (IMI), Delhi
+            — a completely student-run fund constituted as a Section-8 not-for-profit entity.</p>
+          <p>This is not a trading simulation. <strong>SAHYOG</strong> manages real capital under real institutional
+            governance, with
+            formal accountability at every step. Every trade executed under pre-approved governance controls. Every
+            report published under faculty oversight. Every process documented and audited monthly.</p>
+          <div class="pq">
+            <p>"The best way to train the next generation of investment professionals is not to teach them about markets
+              in a classroom, but to place them inside a functioning investment organization."</p>
+            <p style="margin-top:10px !important;font-size:12px;font-family:'JetBrains Mono', monospace;color:var(--ac) !important;letter-spacing:.04em;">
+              — Dr. Monika Chopra
+            </p>
+          </div>
+        </div>
+        <div class="ab-cards reveal">
+          <div class="acard">
+            <div class="acard-top">
+              <div class="aico">🏛️</div>
+              <h4>Institutional Governance</h4>
+            </div>
+            <p>Faculty oversight, monthly audits, pre-trade approvals, and Investment Committee sign-offs — every layer
+              of governance mirrors a professional buy-side investment firm.</p>
+          </div>
+          <div class="acard">
+            <div class="acard-top">
+              <div class="aico">🔬</div>
+              <h4>Full Research Process</h4>
+            </div>
+            <p>Every thesis goes through fundamental analysis, technical validation, formal Investment Memo preparation,
+              and Investment Committee approval before any trade is executed.</p>
+          </div>
+          <div class="acard">
+            <div class="acard-top">
+              <div class="aico">📐</div>
+              <h4>Quantitative Capability</h4>
+            </div>
+            <p><strong>SAHYOG</strong>'s quant team builds and backtests algorithmic strategies using charting tools,
+              scripting workflows, and real historical NSE and BSE price data.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MISSION BAND -->
+  <div class="mband">
+    <div class="mb-in">
+      <p class="mq">Our mission is to cultivate <strong>disciplined, ethical, and research-driven investors</strong> by
+        managing capital responsibly, generating long-term welfare, and serving as a bridge between academic rigor and
+        real-world financial markets.</p>
+      <p class="mattr">— <strong>SAHYOG</strong> Mission Statement</p>
+    </div>
+  </div>
+
+  <!-- ══════════ STRUCTURE ══════════ -->
+  <section id="structure">
+    <div class="sin">
+      <div class="reveal">
+        <div class="kicker">Organizational Structure</div>
+        <h2 class="sh2">Three Verticals,<br><strong>One Integrated Fund</strong></h2>
+        <p class="sbody">Each vertical holds a distinct mandate and a defined set of responsibilities, functioning
+          together as a single investment organisation.</p>
+      </div>
+      <div class="vgrid">
+        <div class="vc reveal">
+          <div class="vnum">01 / VERTICAL</div>
+          <div class="vico">📈</div>
+          <h3>Finance</h3>
+          <p>The intellectual engine of <strong>SAHYOG</strong>. Responsible for identifying opportunities, building the
+            full analytical
+            case — business model, financials, valuation, growth potential — presenting the Investment Memo to the IC,
+            executing trades, and tracking positions to exit, with technical analysis supporting entry and exit
+            timing.</p>
+          <div class="vtags">
+            <span class="vtag">Equity Research</span>
+            <span class="vtag">Investment Memo</span>
+            <span class="vtag">Technical Analysis</span>
+            <span class="vtag">Portfolio Mgmt</span>
+          </div>
+        </div>
+        <div class="vc reveal">
+          <div class="vnum">02 / VERTICAL</div>
+          <div class="vico">📣</div>
+          <h3>Marketing</h3>
+          <p>Manages <strong>SAHYOG</strong>'s external presence — LinkedIn content, alumni network outreach, campus
+            recruitment
+            campaigns, and institutional communication with IMI faculty. Every report, presentation, and post is
+            reviewed to meet <strong>SAHYOG</strong>'s brand standards. Also organises guest speaker talks and
+            inter-college
+            competitions.</p>
+          <div class="vtags">
+            <span class="vtag">LinkedIn</span>
+            <span class="vtag">Alumni Network</span>
+            <span class="vtag">Events</span>
+            <span class="vtag">Brand & Comms</span>
+          </div>
+        </div>
+        <div class="vc reveal">
+          <div class="vnum">03 / VERTICAL</div>
+          <div class="vico">⚖️</div>
+          <h3>HR & Compliance</h3>
+          <p>Keeps <strong>SAHYOG</strong> running as a real organisation. Handles full recruitment cycles, structured
+            performance
+            reviews, SOP documentation, compliance with legal obligations, monthly audit coordination, and credential
+            management — while maintaining a healthy and functional work culture.</p>
+          <div class="vtags">
+            <span class="vtag">Recruitment</span>
+            <span class="vtag">SOP & Docs</span>
+            <span class="vtag">Audit</span>
+            <span class="vtag">Compliance</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ AGM HIGHLIGHTS ══════════ -->
+  <section id="agm">
+    <div class="sin">
+      <div class="reveal">
+        <div class="kicker">Fund Updates</div>
+        <h2 class="sh2">AGM &amp; <strong>Key Highlights</strong></h2>
+        <p class="sbody">A living record of <strong>SAHYOG</strong>'s meetings, investment committee decisions, and fund
+          milestones —
+          updated after every significant event.</p>
+      </div>
+      <div style="margin-top:56px">
+        <div class="agm-timeline" id="agmList"></div>
+        <div class="agm-empty" id="agmEmpty">
+          <p>No highlights added yet. Check back soon for fund updates and milestone records.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ TEAM ══════════ -->
+  <section id="team">
+    <div class="sin">
+      <div class="reveal">
+        <div class="kicker">The Team</div>
+        <h2 class="sh2">Leadership &amp; <strong>Analysts</strong></h2>
+        <p class="team-tip">Click any card to view role and sector coverage.</p>
+      </div>
+      <div style="margin-top:50px">
+        <div class="reveal">
+          <div class="team-tabs" role="tablist" aria-label="Team categories">
+            <button class="team-tab active" data-team-tab="leadership" role="tab" aria-selected="true">Leadership</button>
+            <button class="team-tab" data-team-tab="finance" role="tab" aria-selected="false">Analyst</button>
+            <button class="team-tab" data-team-tab="hr" role="tab" aria-selected="false">HR</button>
+            <button class="team-tab" data-team-tab="marketing" role="tab" aria-selected="false">Marketing</button>
+          </div>
+
+          <div class="team-panel active" data-team-panel="leadership">
+            <div class="tslbl">Leadership</div>
+            <div class="lgrid">
+              <div class="mcard fac team-card" data-name="Dr. Monika Chopra" data-role="Faculty Mentor &amp; Audit Chair" data-sector="Fund Governance &amp; Audit" data-description="Associate Professor at IMI Delhi and CFA charterholder guiding governance, oversight, and audit discipline across SAHYOG.">
+                <div class="mav"><img class="crop-monika" src="https://i.im.ge/2026/03/21/efyoSL.monika-maam.jpeg" alt="Dr. Monika Chopra"></div>
+                <div class="mname">Dr. Monika Chopra</div>
+                <div class="mrole">Faculty Mentor &amp; Audit Chair</div>
+                <div style="margin-top:5px" class="cfab">Finance Area Chair &amp;<br>Associate Professor</div>
+              </div>
+              <div class="mcard fac team-card" data-name="RK Singh" data-role="CFO, IMI Delhi" data-sector="Institutional Finance" data-description="Provides institutional finance oversight and supports the fund's financial discipline at the organisation level.">
+                <div class="mav">RK</div>
+                <div class="mname">RK Singh</div>
+                <div class="mrole">Finance Overseer</div>
+                <div style="margin-top:5px" class="cfab">CFO<br>IMI Delhi</div>
+              </div>
+              <div class="mcard team-card" data-name="Rishabh Prakash" data-role="Fund Manager" data-description="Leads overall fund execution, oversees portfolio decisions, and drives macro analysis while managing the fund.">
+              <div class="mav"><img class="crop-rishabh" src="https://i.im.ge/2026/03/21/eft4gr.rishabh.png" alt="Rishabh Prakash"></div>
+              <div class="mname">Rishabh Prakash</div>
+              <div class="mrole">Fund Manager</div>
+              <div style="margin-top:5px" class="cfab">PGDM B&amp;FS<br>(2025-27)</div>
+            </div>
+            <div class="mcard team-card" data-name="Jatin Kumar Rathi" data-role="Chief Investment Officer" data-description="Owns portfolio strategy, thesis quality, and investment committee readiness across ideas entering the fund pipeline, with a macro analysis lens.">
+              <div class="mav"><img class="crop-jatin" src="https://i.im.ge/2026/03/22/ef8uyM.jatin.png" alt="Jatin Kumar Rathi"></div>
+              <div class="mname">Jatin Kumar Rathi</div>
+              <div class="mrole">Chief Investment Officer</div>
+              <div style="margin-top:5px" class="cfab">PGDM<br>(2025-27)</div>
+            </div>
+            <div class="mcard team-card" data-name="Ayushi Ahuja" data-role="Chief Risk Officer" data-description="Monitors portfolio risk, process discipline, and control frameworks to ensure responsible capital deployment, with focus on the chemical space.">
+              <div class="mav"><img class="crop-ayushi" src="https://i.im.ge/2026/03/21/efyfQy.ayushi.png" alt="Ayushi Ahuja"></div>
+              <div class="mname">Ayushi Ahuja</div>
+              <div class="mrole">Chief Risk Officer</div>
+              <div style="margin-top:5px" class="cfab">PGDM<br>(2025-27)</div>
+            </div>
+            <div class="mcard team-card" data-name="Archit Mahajan" data-role="Director, Board of Directors" data-description="Supports board-level direction, continuity, and long-term organisational development for the fund.">
+              <div class="mav">AM</div>
+              <div class="mname">Archit Mahajan</div>
+              <div class="mrole">Director, Board of Directors</div>
+              <div style="margin-top:5px" class="cfab">PGDM B&amp;FS<br>(2024-25)</div>
+            </div>
+            </div>
+          </div>
+
+          <div class="team-panel" data-team-panel="finance">
+            <div class="team-subsec">
+              <div class="tslbl">Finance Vertical — Senior Analysts</div>
+              <div class="an-grid">
+                <div class="ancard team-card" data-name="Nilay Nagpal" data-role="Senior Analyst" data-description="Supports idea generation, company analysis, and investment memo work within the finance vertical, with focus on infrastructure.">
+                  <div class="anav"><img class="crop-nilay" src="https://i.im.ge/2026/03/21/eftH6P.nilay-copy.jpeg" alt="Nilay Nagpal"></div>
+                  <div class="anname">Nilay Nagpal</div>
+                  <div class="anrole">Senior Analyst</div>
+                  <div style="margin-top:5px" class="cfab">PGDM<br>(2025-27)</div>
+                </div>
+                <div class="ancard team-card" data-name="Heetkumar Patel" data-role="Senior Analyst" data-description="Contributes to research, screening, and analytical support across the finance vertical, with focus on consumer durable businesses.">
+                  <div class="anav"><img class="full-bleed" src="https://i.im.ge/2026/03/21/eftK74.heet-copy.jpeg" alt="Heetkumar Patel"></div>
+                  <div class="anname">Heetkumar Patel</div>
+                  <div class="anrole">Senior Analyst</div>
+                  <div style="margin-top:5px" class="cfab">PGDM<br>(2025-27)</div>
+                </div>
+                <div class="ancard team-card" data-name="Pratik Acharyya" data-role="Senior Analyst" data-description="Works on company research, valuation support, and sector tracking for the fund team, with focus on pharmaceuticals.">
+                  <div class="anav"><img class="crop-pratik" src="https://i.im.ge/2026/03/22/eff6GF.pratik-copy.png" alt="Pratik Acharyya"></div>
+                  <div class="anname">Pratik Acharyya</div>
+                  <div class="anrole">Senior Analyst</div>
+                  <div style="margin-top:5px" class="cfab">PGDM<br>(2025-27)</div>
+                </div>
+                <div class="ancard team-card" data-name="Rajdeep Singh" data-role="Senior Analyst" data-description="Supports analytical coverage, investment note preparation, and thesis validation work, with focus on consumer staples and FMCG.">
+                  <div class="anav"><img class="crop-rajdeep" src="https://i.im.ge/2026/03/21/efykLS.rajdeep.png" alt="Rajdeep Singh"></div>
+                  <div class="anname">Rajdeep Singh</div>
+                  <div class="anrole">Senior Analyst</div>
+                  <div style="margin-top:5px" class="cfab">PGDM B&amp;FS<br>(2025-27)</div>
+                </div>
+                <div class="ancard team-card" data-name="Sarthak Dhariwal" data-role="Senior Analyst" data-description="Contributes to stock screening, research workflows, and ongoing portfolio support, with focus on banking.">
+                  <div class="anav"><img class="crop-sarthak" src="https://i.im.ge/2026/03/21/eftpV1.sarthak-copy.jpeg" alt="Sarthak Dhariwal"></div>
+                  <div class="anname">Sarthak Dhariwal</div>
+                  <div class="anrole">Senior Analyst</div>
+                  <div style="margin-top:5px" class="cfab">PGDM B&amp;FS<br>(2025-27)</div>
+                </div>
+              </div>
+            </div>
+            <div class="team-subsec">
+              <div class="tslbl">Finance Vertical — Junior Analysts</div>
+              <div class="team-empty">None</div>
+            </div>
+          </div>
+
+          <div class="team-panel" data-team-panel="hr">
+            <div class="team-subsec">
+              <div class="tslbl">HR &amp; Compliance — Senior Team</div>
+              <div class="an-grid team-grid-tight">
+                <div class="ancard team-card" data-name="Vaishnavi Ayani" data-role="Senior HR Associate" data-description="Supports recruitment coordination, team operations, and core people-process execution within SAHYOG's HR and compliance vertical.">
+                  <div class="anav"><img class="crop-ayani" src="https://i.im.ge/2026/03/21/efC0pC.ayani.png" alt="Vaishnavi Ayani"></div>
+                  <div class="anname">Vaishnavi Ayani</div>
+                  <div class="anrole">Senior HR Associate</div>
+                </div>
+                <div class="ancard team-card" data-name="MV Yurekaa" data-role="Senior HR Associate" data-description="Supports HR operations, people coordination, and execution across SAHYOG's HR and compliance workflows.">
+                  <div class="anav"><img class="crop-yurekaa" src="https://i.im.ge/2026/03/21/efxty0.yureeka.png" alt="MV Yurekaa"></div>
+                  <div class="anname">MV Yurekaa</div>
+                  <div class="anrole">Senior HR Associate</div>
+                </div>
+              </div>
+            </div>
+            <div class="team-subsec">
+              <div class="tslbl">HR &amp; Compliance — Junior Team</div>
+              <div class="team-empty">None</div>
+            </div>
+          </div>
+
+          <div class="team-panel" data-team-panel="marketing">
+            <div class="team-subsec">
+              <div class="tslbl">Marketing — Senior Team</div>
+              <div class="team-empty">None</div>
+            </div>
+            <div class="team-subsec">
+              <div class="tslbl">Marketing — Junior Team</div>
+              <div class="team-empty">None</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="profile-modal" id="profileModal" aria-hidden="true">
+    <div class="profile-card">
+      <button class="profile-close" id="profileClose" aria-label="Close profile">×</button>
+      <div class="profile-head">
+        <div class="profile-avatar" id="profileAvatar"></div>
+        <div>
+          <div class="profile-name" id="profileName"></div>
+          <div class="profile-role" id="profileRole"></div>
+        </div>
+      </div>
+      <div class="profile-grid">
+        <div class="profile-meta">
+          <div class="profile-k">Role</div>
+          <div class="profile-v" id="profileRoleDetail"></div>
+        </div>
+        <div class="profile-meta" id="profileFocusMeta">
+          <div class="profile-k">Focus Area</div>
+          <div class="profile-v" id="profileSector"></div>
+        </div>
+        <div class="profile-meta" style="grid-column:1 / -1">
+          <div class="profile-k">Profile</div>
+          <div class="profile-v" id="profileDescription"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ TESTIMONIALS ══════════ -->
+  <section id="testimonials">
+    <div class="sin">
+      <div class="reveal">
+        <div class="kicker">Testimonials</div>
+        <h2 class="sh2">What People <strong>Say</strong></h2>
+        <p class="sbody">Perspectives from mentors, alumni, and industry professionals who have engaged with
+          <strong>SAHYOG</strong>.
+        </p>
+      </div>
+      <div class="testi-wrap">
+        <div class="testi-track" id="testiTrack">
+
+          <div class="testi-card">
+            <div class="testi-avatar"><img src="https://i.im.ge/2026/03/21/efyoSL.monika-maam.jpeg" alt="Dr. Monika Chopra"></div>
+            <div class="testi-body">
+              <p class="testi-quote">The best way to train the next generation of investment professionals is not to
+                teach them about markets in a classroom, but to place them inside a functioning investment organization.
+                <strong>SAHYOG</strong> is exactly that — a real fund, with real governance, producing real outcomes.
+              </p>
+              <div class="testi-meta">
+                <div class="testi-name">Dr. Monika Chopra</div>
+                <div class="testi-role">Faculty Mentor & Internal Audit Chair</div>
+                <div class="testi-org">Associate Professor, IMI Delhi · CFA Charterholder</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="testi-card">
+            <div class="testi-avatar"><img src="https://i.im.ge/2026/03/21/efytu1.himadri-das.jpeg" alt="Himadri Das"></div>
+            <div class="testi-body">
+              <p class="testi-quote"><strong>SAHYOG</strong> represents students stepping up, building something
+                credible, and making IMI Delhi proud on the national stage.
+                This is the kind of initiative that defines the spirit of our institution.</p>
+              <div class="testi-meta">
+                <div class="testi-name">Himadri Das</div>
+                <div class="testi-role">Director General</div>
+                <div class="testi-org">International Management Institute, Delhi</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="testi-nav">
+          <button class="testi-btn" id="testiPrev" aria-label="Previous testimonial">←</button>
+          <button class="testi-btn" id="testiNext" aria-label="Next testimonial">→</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ REPORTS ══════════ -->
+  <section id="reports">
+    <div class="sin">
+      <div class="reveal">
+        <div class="kicker">Research &amp; Publications</div>
+        <h2 class="sh2">Published <strong>Intelligence</strong></h2>
+        <p class="sbody">Market intelligence reports covering portfolio updates, sector developments, and
+          <strong>SAHYOG</strong>'s
+          investment pipeline — for IMI faculty, alumni, and the broader student community.
+        </p>
+      </div>
+      <div class="rep-soon reveal">
+        <div class="rep-soon-ico">📑</div>
+        <h3>Reports Coming Soon</h3>
+        <p><strong>SAHYOG</strong>'s research publications will appear here as they are released. Follow us on LinkedIn
+          to be notified
+          when new reports go live.</p>
+        <a href="https://www.linkedin.com/company/sahyogimi/" target="_blank" class="btn-p"
+          style="display:inline-flex">
+          Follow on LinkedIn
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="margin-left:4px">
+            <path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ CONNECT ══════════ -->
+  <section id="connect">
+    <div class="sin">
+      <div class="reveal">
+        <div class="kicker">Connect</div>
+        <h2 class="sh2">Join, Mentor, <strong>Support</strong></h2>
+      </div>
+      <div class="cgrid">
+        <div class="cleft">
+          <div class="ccard reveal">
+            <div class="cico">🎓</div>
+            <h4>How Can I Join?</h4>
+            <p><strong>SAHYOG</strong> recruits from IMI Delhi's full-time programmes at the start of each academic term
+              — for all three
+              verticals. We look for intellectual curiosity, willingness to work within structured processes, and a
+              genuine commitment to the work. Shortlisted candidates submit a written application and attend a
+              structured interview.</p>
+            <p style="font-size:13px;color:var(--ac);font-weight:500;margin-bottom:12px">Next recruitment cycle: To be
+              announced.</p>
+            <a href="https://www.linkedin.com/company/sahyogimi/" target="_blank" class="larr">Follow on LinkedIn
+              for updates →</a>
+          </div>
+          <div class="ccard reveal">
+            <div class="cico">🤝</div>
+            <h4>Alumni &amp; Industry Professionals</h4>
+            <p>If you are an IMI Delhi alumnus or an industry professional interested in engaging as a mentor, guest
+              speaker, or strategic contributor — <strong>SAHYOG</strong>'s members are at the most formative stage of
+              their investment
+              careers. The perspective of someone who has managed money through real market cycles is something no
+              classroom can replicate.</p>
+            <a href="mailto:sahyog@imi.edu" class="larr">Write to sahyog@imi.edu →</a>
+          </div>
+        </div>
+        <div class="cright reveal">
+          <div style="font-size:34px;margin-bottom:13px">💙</div>
+          <h3>Support <strong>SAHYOG</strong></h3>
+          <p><strong>SAHYOG</strong> is a Section-8 not-for-profit entity. Every contribution goes toward building a
+            better learning
+            environment and producing higher-quality research for our stakeholders.</p>
+          <p style="font-size:13px;font-weight:500;color:var(--ac);margin-bottom:14px">Contribute and be part of us
+            forever.</p>
+          <div class="qrbox">
+            <svg width="96" height="96" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg">
+              <rect x="4" y="4" width="30" height="30" fill="none" stroke="var(--ac)" stroke-width="3" />
+              <rect x="10" y="10" width="18" height="18" fill="var(--ac)" opacity=".35" />
+              <rect x="62" y="4" width="30" height="30" fill="none" stroke="var(--ac)" stroke-width="3" />
+              <rect x="68" y="10" width="18" height="18" fill="var(--ac)" opacity=".35" />
+              <rect x="4" y="62" width="30" height="30" fill="none" stroke="var(--ac)" stroke-width="3" />
+              <rect x="10" y="68" width="18" height="18" fill="var(--ac)" opacity=".35" />
+              <rect x="62" y="62" width="7" height="7" fill="var(--ac)" opacity=".5" />
+              <rect x="73" y="62" width="7" height="7" fill="var(--ac)" opacity=".5" />
+              <rect x="84" y="62" width="7" height="7" fill="var(--ac)" opacity=".5" />
+              <rect x="62" y="73" width="7" height="7" fill="var(--ac)" opacity=".5" />
+              <rect x="84" y="73" width="7" height="7" fill="var(--ac)" opacity=".5" />
+              <rect x="62" y="84" width="7" height="7" fill="var(--ac)" opacity=".5" />
+              <rect x="73" y="84" width="7" height="7" fill="var(--ac)" opacity=".5" />
+              <rect x="84" y="84" width="7" height="7" fill="var(--ac)" opacity=".5" />
+            </svg>
+          </div>
+          <p class="pnote">All contributors join our permanent mailing list and receive every research report and update
+            we publish — for as long as <strong>SAHYOG</strong> operates.</p>
+          <a href="mailto:sahyog@imi.edu" class="btn-g"
+            style="display:flex;justify-content:center;margin-top:14px">Submit Contribution Proof</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="fin">
+      <div class="ftop">
+        <div class="fbrand">
+          <a href="#" class="nav-logo">
+            <div class="logo-sq"><img src="https://i.im.ge/2026/03/21/efC80a.Sahyog-Logo.png" alt="SAHYOG logo"></div>
+            <div class="logo-txt">
+              <div class="logo-name">SAHYOG</div>
+              <div class="logo-tag">IMI Delhi</div>
+            </div>
+          </a>
+          <p>A student-managed investment fund at the International Management Institute, Delhi. Constituted as a
+            Section-8 not-for-profit entity. Operated with institutional governance standards.</p>
+        </div>
+        <div class="fcol">
+          <h5>Fund</h5>
+          <a href="#about">About</a>
+          <a href="#structure">Structure</a>
+          <a href="#agm">AGM Highlights</a>
+          <a href="#team">Team</a>
+          <a href="#reports">Reports</a>
+        </div>
+        <div class="fcol">
+          <h5>Engage</h5>
+          <a href="#connect">Join <strong>SAHYOG</strong></a>
+          <a href="mailto:sahyog@imi.edu">Mentorship</a>
+          <a href="#connect">Support Us</a>
+          <a href="https://www.linkedin.com/company/sahyogimi/" target="_blank">LinkedIn</a>
+        </div>
+        <div class="fcol">
+          <h5>Contact</h5>
+          <a href="mailto:sahyog@imi.edu">sahyog@imi.edu</a>
+          <a href="#">B-10, Qutab Institutional Area</a>
+          <a href="#">New Delhi — 110016</a>
+        </div>
+      </div>
+      <div class="fbot">
+        <p class="fcopy">© 2026 <strong>SAHYOG</strong> · IMI Delhi. Mentored by <a href="#">Dr. Monika Chopra, CFA</a>.
+        </p>
+        <p class="fmade">Made with Passion by <a href="https://www.linkedin.com/in/7thripr/" target="_blank">Rishabh Prakash</a></p>
+        <span class="s8">SECTION-8 NOT-FOR-PROFIT</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ── THEME ── */
+    const html = document.documentElement;
+    const btn = document.getElementById('themeBtn');
+    const ico = document.getElementById('themeIcon');
+    const lbl = document.getElementById('themeLbl');
+    function setTheme(t) {
+      html.dataset.theme = t;
+      localStorage.setItem('sahyog-theme', t);
+      ico.textContent = t === 'dark' ? '☀️' : '🌙';
+      lbl.textContent = t === 'dark' ? 'Light' : 'Dark';
+    }
+    btn.addEventListener('click', () => setTheme(html.dataset.theme === 'dark' ? 'light' : 'dark'));
+    setTheme(localStorage.getItem('sahyog-theme') || 'dark');
+
+    /* ── MOBILE MENU ── */
+    document.getElementById('ham').addEventListener('click', () => document.getElementById('mobMenu').classList.add('open'));
+    document.getElementById('mobX').addEventListener('click', () => document.getElementById('mobMenu').classList.remove('open'));
+    function closeMob() { document.getElementById('mobMenu').classList.remove('open') }
+
+    /* ── SCROLL REVEAL ── */
+    const ro = new IntersectionObserver(entries => {
+      entries.forEach((e, i) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('vis'), i * 90); ro.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+    /* ── TEAM TABS ── */
+    const teamTabs = document.querySelectorAll('.team-tab');
+    const teamPanels = document.querySelectorAll('.team-panel');
+    teamTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const target = tab.dataset.teamTab;
+        teamTabs.forEach(item => {
+          item.classList.toggle('active', item === tab);
+          item.setAttribute('aria-selected', item === tab ? 'true' : 'false');
+        });
+        teamPanels.forEach(panel => {
+          panel.classList.toggle('active', panel.dataset.teamPanel === target);
+        });
+      });
+    });
+
+    document.querySelectorAll('.team-subsec').forEach(section => {
+      const hasMemberCard = !!section.querySelector('.team-card');
+      const emptyBlock = section.querySelector('.team-empty');
+      if (!hasMemberCard && emptyBlock) {
+        section.classList.add('hidden');
+      }
+    });
+
+    /* ── TEAM PROFILE MODAL ── */
+    const profileModal = document.getElementById('profileModal');
+    const profileClose = document.getElementById('profileClose');
+    const profileAvatar = document.getElementById('profileAvatar');
+    const profileName = document.getElementById('profileName');
+    const profileRole = document.getElementById('profileRole');
+    const profileRoleDetail = document.getElementById('profileRoleDetail');
+    const profileFocusMeta = document.getElementById('profileFocusMeta');
+    const profileSector = document.getElementById('profileSector');
+    const profileDescription = document.getElementById('profileDescription');
+
+    function openProfile(card) {
+      const avatarSource = card.querySelector('img');
+      const avatarFallback = card.querySelector('.mav, .anav')?.textContent.trim() || '';
+      profileName.textContent = card.dataset.name || '';
+      profileRole.textContent = card.dataset.role || '';
+      profileRoleDetail.textContent = card.dataset.role || '';
+      const focusArea = card.dataset.sector || '';
+      profileSector.textContent = focusArea;
+      profileFocusMeta.style.display = focusArea ? 'block' : 'none';
+      profileDescription.textContent = card.dataset.description || '';
+      profileAvatar.innerHTML = avatarSource
+        ? `<img src="${avatarSource.src}" alt="${card.dataset.name || 'Team member'}">`
+        : avatarFallback;
+      profileModal.classList.add('open');
+      profileModal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeProfile() {
+      profileModal.classList.remove('open');
+      profileModal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('.team-card').forEach(card => {
+      card.addEventListener('click', () => openProfile(card));
+    });
+    profileClose.addEventListener('click', closeProfile);
+    profileModal.addEventListener('click', e => {
+      if (e.target === profileModal) closeProfile();
+    });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && profileModal.classList.contains('open')) closeProfile();
+    });
+
+    /* ── AGM HIGHLIGHTS ── */
+    let agmData = JSON.parse(localStorage.getItem('sahyog-agm') || '[]');
+    function renderAGM() {
+      const list = document.getElementById('agmList');
+      const empty = document.getElementById('agmEmpty');
+      list.innerHTML = '';
+      if (!agmData.length) { empty.style.display = 'block'; return; }
+      empty.style.display = 'none';
+      [...agmData].sort((a, b) => new Date(b.date) - new Date(a.date)).forEach(item => {
+        const d = new Date(item.date);
+        const ds = d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+        const div = document.createElement('div');
+        div.className = 'agi';
+        div.innerHTML = `
+      <div class="agi-meta">
+        <span class="agi-date">${ds}</span>
+        <span class="agi-type">${item.type}</span>
+      </div>
+      <h4>${item.title}</h4>
+      <p>${item.desc}</p>`;
+        list.appendChild(div);
+      });
+    }
+    renderAGM();
+
+    /* ── HERO MOUSE VECTOR ── */
+    const hero = document.getElementById('home');
+    const mouseOrb = document.getElementById('mouseOrb');
+    const mouseRing = document.getElementById('mouseRing');
+
+    if (hero && mouseOrb && mouseRing && window.matchMedia('(pointer: fine)').matches) {
+      let orbX = window.innerWidth * 0.7;
+      let orbY = window.innerHeight * 0.35;
+      let ringX = orbX;
+      let ringY = orbY;
+      let targetX = orbX;
+      let targetY = orbY;
+
+      function animateMouseGlow() {
+        orbX += (targetX - orbX) * 0.14;
+        orbY += (targetY - orbY) * 0.14;
+        ringX += (targetX - ringX) * 0.08;
+        ringY += (targetY - ringY) * 0.08;
+        mouseOrb.style.transform = `translate3d(${orbX}px, ${orbY}px, 0) translate(-50%, -50%)`;
+        mouseRing.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%)`;
+        requestAnimationFrame(animateMouseGlow);
+      }
+
+      hero.addEventListener('mousemove', e => {
+        const rect = hero.getBoundingClientRect();
+        targetX = e.clientX - rect.left;
+        targetY = e.clientY - rect.top;
+      });
+
+      hero.addEventListener('mouseleave', () => {
+        targetX = hero.clientWidth * 0.72;
+        targetY = hero.clientHeight * 0.34;
+      });
+
+      animateMouseGlow();
+    }
+
+    /* ── FUND NAV PDF LINK ──
+       Replace '#FUND_NAV_PDF' below with the actual URL of your NAV PDF.
+       Example: document.querySelectorAll('[href="#FUND_NAV_PDF"]').forEach(a=>a.href='https://drive.google.com/your-nav-pdf');
+    */
+
+    /* ── TESTIMONIAL CAROUSEL ── */
+    const testiTrack = document.getElementById('testiTrack');
+    const testiCards = testiTrack.querySelectorAll('.testi-card');
+    let testiIndex = 0;
+
+    function scrollToCard(i) {
+      testiIndex = i;
+      testiCards[testiIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+    }
+
+    function nextCard() {
+      testiIndex = (testiIndex + 1) % testiCards.length;
+      scrollToCard(testiIndex);
+    }
+
+    function prevCard() {
+      testiIndex = (testiIndex - 1 + testiCards.length) % testiCards.length;
+      scrollToCard(testiIndex);
+    }
+
+    document.getElementById('testiPrev').addEventListener('click', prevCard);
+    document.getElementById('testiNext').addEventListener('click', nextCard);
+  </script>
+</body>
+
+</html>
